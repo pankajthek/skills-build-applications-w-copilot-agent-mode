@@ -28,6 +28,9 @@ DEBUG = True
 # Allow all hosts
 ALLOWED_HOSTS = ['*']
 
+# Add Codespace Django REST API endpoint suffix
+CODESPACE_URL = 'http://bookish-pancake-v65569749792wp5x-8000.app.github.dev'
+
 
 # Application definition
 
