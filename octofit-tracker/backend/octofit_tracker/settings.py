@@ -25,7 +25,8 @@ SECRET_KEY = "django-insecure-p+ojtd7_ex9rj4hj(ut34g69q%66cseotpv1k)h%kg)$nppw&g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Allow all hosts
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,11 +40,16 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     'djongo',
-    'corsheaders',
     'octofit_tracker',
 ]
 
+# Remove duplicate entry for 'corsheaders'
+INSTALLED_APPS = [
+    app for app in INSTALLED_APPS if app != 'corsheaders'
+] + ['corsheaders']
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     'corsheaders.middleware.CorsMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -78,6 +84,7 @@ WSGI_APPLICATION = "octofit_tracker.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# Add MongoDB database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
@@ -87,7 +94,21 @@ DATABASES = {
     }
 }
 
+# Enable CORS
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+    'x-csrftoken',
+]
 
 
 # Password validation
